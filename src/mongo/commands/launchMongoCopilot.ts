@@ -14,6 +14,6 @@ export async function launchMongoCopilot(context: IActionContext, node?: MongoDa
         node = await pickMongo<MongoDatabaseTreeItem>(context, MongoDatabaseTreeItem.contextValue);
     }
     setConnectedNode(node);
-    const sampleQuestion = `Get 5 documents, order by time\n`;
+    const sampleQuestion = `Get 10 documents, order by name\n`;
     await vscodeUtil.showNewFile(sampleQuestion, `copilot for ${node.label}`, ".copilot");
 }
