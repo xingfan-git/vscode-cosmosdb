@@ -109,11 +109,26 @@
                 "extensions": [
                     ".nosql"
                 ]
+            },
+            {
+                "id": "copilot",
+                "aliases": [
+                    "Mongo vCore Copilot",
+                    "copilot"
+                ],
+                "extensions": [
+                    ".copilot"
+                ]
             }
         ],
         "grammars": [
             {
                 "language": "mongo",
+                "scopeName": "source.mongo.js",
+                "path": "./grammar/JavaScript.tmLanguage.json"
+            },
+            {
+                "language": "copilot",
                 "scopeName": "source.mongo.js",
                 "path": "./grammar/JavaScript.tmLanguage.json"
             },
@@ -310,6 +325,16 @@
                 "when": "false"
             },
             {
+                "category": "MongoDB DB",
+                "command": "cosmosDB.generateVCoreCode",
+                "title": "Generate vCore Code"
+            },
+            {
+                "category": "MongoDB DB",
+                "command": "cosmosDB.generateVCoreQuery",
+                "title": "Generate vCore Query"
+            },
+            {
                 "category": "Cosmos DB",
                 "command": "cosmosDB.getNoSqlQueryPlan",
                 "title": "Get NoSQL Query Plan",
@@ -319,6 +344,11 @@
                 "category": "Cosmos DB",
                 "command": "cosmosDB.importDocument",
                 "title": "Import Document into a Collection..."
+            },
+            {
+                "category": "MongoDB",
+                "command": "cosmosDB.launchMongoCopilot",
+                "title": "MongoDB vCore Copilot"
             },
             {
                 "category": "MongoDB",
@@ -355,6 +385,11 @@
                 "category": "Cosmos DB",
                 "command": "cosmosDB.openTrigger",
                 "title": "Open Trigger"
+            },
+            {
+                "category": "MongoDB DB",
+                "command": "cosmosDB.searchVCoreDocumentation",
+                "title": "Search vCore Documentation"
             },
             {
                 "category": "Core (SQL)",
@@ -498,8 +533,20 @@
                     "when": "resourceLangId==mongo"
                 },
                 {
+                    "command": "cosmosDB.generateVCoreCode",
+                    "when": "resourceLangId == 'copilot'"
+                },
+                {
+                    "command": "cosmosDB.generateVCoreQuery",
+                    "when": "resourceLangId == 'copilot'"
+                },
+                {
                     "command": "cosmosDB.importDocument",
                     "when": "resourceLangId==json"
+                },
+                {
+                    "command": "cosmosDB.searchVCoreDocumentation",
+                    "when": "resourceLangId == 'copilot'"
                 },
                 {
                     "command": "postgreSQL.connectDatabase",
@@ -578,6 +625,11 @@
                     "command": "cosmosDB.createMongoCollection",
                     "when": "view =~ /azure(ResourceGroups|Workspace|FocusView)/ && viewItem == mongoDb",
                     "group": "1@1"
+                },
+                {
+                    "command": "cosmosDB.launchMongoCopilot",
+                    "when": "view =~ /azure(ResourceGroups|Workspace|FocusView)/ && viewItem == mongoDb",
+                    "group": "3@1"
                 },
                 {
                     "command": "cosmosDB.createDocDBDocument",
@@ -902,7 +954,7 @@
                 {
                     "command": "azureDatabases.refresh",
                     "when": "view =~ /azure(ResourceGroups|Workspace|FocusView)/ && viewItem == mongoDb",
-                    "group": "3@1"
+                    "group": "4@1"
                 },
                 {
                     "command": "azureDatabases.refresh",
@@ -976,8 +1028,20 @@
                     "when": "editorLangId == 'nosql'"
                 },
                 {
+                    "command": "cosmosDB.generateVCoreCode",
+                    "when": "editorLangId == 'copilot'"
+                },
+                {
+                    "command": "cosmosDB.generateVCoreQuery",
+                    "when": "editorLangId == 'copilot'"
+                },
+                {
                     "command": "cosmosDB.getNoSqlQueryPlan",
                     "when": "editorLangId == 'nosql'"
+                },
+                {
+                    "command": "cosmosDB.searchVCoreDocumentation",
+                    "when": "editorLangId == 'copilot'"
                 },
                 {
                     "command": "postgreSQL.executeQuery",
