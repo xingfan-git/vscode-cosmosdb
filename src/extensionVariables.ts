@@ -9,6 +9,7 @@ import { ExtensionContext, SecretStorage, TreeView } from "vscode";
 import { DatabasesFileSystem } from "./DatabasesFileSystem";
 import { NoSqlCodeLensProvider } from "./docdb/NoSqlCodeLensProvider";
 import { MongoDBLanguageClient } from "./mongo/languageClient";
+import { CopilotCodeLensProvider } from "./mongo/services/CopilotCodeLensProvider";
 import { MongoCodeLensProvider } from "./mongo/services/MongoCodeLensProvider";
 import { MongoDatabaseTreeItem } from "./mongo/tree/MongoDatabaseTreeItem";
 import { PostgresCodeLensProvider } from "./postgres/services/PostgresCodeLensProvider";
@@ -34,6 +35,7 @@ export namespace ext {
     export const prefix: string = 'azureDatabases';
     export let fileSystem: DatabasesFileSystem;
     export let mongoCodeLensProvider: MongoCodeLensProvider;
+    export let copilotCodeLensProvider: CopilotCodeLensProvider;
     export let noSqlCodeLensProvider: NoSqlCodeLensProvider;
     export let mongoLanguageClient: MongoDBLanguageClient;
     export let rgApi: AzureHostExtensionApi;

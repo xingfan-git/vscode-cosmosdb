@@ -30,6 +30,7 @@ export async function loadPersistedMongoDB(): Promise<void> {
             // Get code lens provider out of initializing state if there's no connected DB
             if (!ext.connectedMongoDB) {
                 ext.mongoCodeLensProvider.setConnectedDatabase(undefined);
+                ext.copilotCodeLensProvider.setConnectedDatabase(undefined);
             }
         }
     });

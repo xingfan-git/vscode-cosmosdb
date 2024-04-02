@@ -16,24 +16,36 @@ import { deleteMongoDB } from "./commands/deleteMongoDatabase";
 import { deleteMongoDocument } from "./commands/deleteMongoDocument";
 import { executeAllMongoCommand } from "./commands/executeAllMongoCommand";
 import { executeMongoCommand } from "./commands/executeMongoCommand";
+import { generateVCoreCode } from "./commands/generateVCoreCode";
+import { generateVCoreQuery } from "./commands/generateVCoreQuery";
+import { launchMongoCopilot } from "./commands/launchMongoCopilot";
 import { launchMongoShell } from "./commands/launchMongoShell";
 import { openMongoCollection } from "./commands/openMongoCollection";
+import { searchVCoreDocumentation } from "./commands/searchVCoreDocumentation";
 import { MongoConnectError } from './connectToMongoClient';
 import { MongoDBLanguageClient } from "./languageClient";
 import { getAllErrorsFromTextDocument } from "./MongoScrapbook";
+import { CopilotCodeLensProvider } from "./services/CopilotCodeLensProvider";
 import { MongoCodeLensProvider } from "./services/MongoCodeLensProvider";
 
 let diagnosticsCollection: vscode.DiagnosticCollection;
 const mongoLanguageId: string = 'mongo';
+const copilotLanguageId: string = 'copilot';
 
 export function registerMongoCommands(): void {
     ext.mongoLanguageClient = new MongoDBLanguageClient();
 
     ext.mongoCodeLensProvider = new MongoCodeLensProvider();
     ext.context.subscriptions.push(vscode.languages.registerCodeLensProvider(mongoLanguageId, ext.mongoCodeLensProvider));
+    ext.copilotCodeLensProvider = new CopilotCodeLensProvider();
+    ext.context.subscriptions.push(vscode.languages.registerCodeLensProvider(copilotLanguageId, ext.copilotCodeLensProvider));
 
     diagnosticsCollection = vscode.languages.createDiagnosticCollection('cosmosDB.mongo');
     ext.context.subscriptions.push(diagnosticsCollection);
+
+    registerCommandWithTreeNodeUnwrapping("cosmosDB.generateVCoreCode", generateVCoreCode);
+    registerCommandWithTreeNodeUnwrapping("cosmosDB.generateVCoreQuery", generateVCoreQuery);
+    registerCommandWithTreeNodeUnwrapping("cosmosDB.searchVCoreDocumentation", searchVCoreDocumentation);
 
     setUpErrorReporting();
     void loadPersistedMongoDB();
@@ -54,6 +66,7 @@ export function registerMongoCommands(): void {
     registerCommandWithTreeNodeUnwrapping('cosmosDB.connectMongoDB', connectMongoDatabase);
     registerCommandWithTreeNodeUnwrapping('cosmosDB.createMongoCollection', createMongoCollection);
     registerCommandWithTreeNodeUnwrapping('cosmosDB.deleteMongoDB', deleteMongoDB);
+    registerCommandWithTreeNodeUnwrapping('cosmosDB.launchMongoCopilot', launchMongoCopilot);
 
     // #endregion
 
